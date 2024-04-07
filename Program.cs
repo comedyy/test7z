@@ -14,14 +14,13 @@ namespace MyApp // Note: actual namespace depends on the project name.
 			byte[] allBytes = File.ReadAllBytes("aaa");
 			byte[] allBytes1 = File.ReadAllBytes("ccc");
 
-			CRC c1 = new CRC();
-			c1.Init();
-			c1.Update(allBytes, 0, (uint)allBytes.Length);
+
+			var crc1 = CRC.CalculateDigest(allBytes, 0, (uint)allBytes.Length);
 
 			CRC c2 = new CRC();
 			c2.Init();
 			c2.Update(allBytes1, 0, (uint)allBytes1.Length);
-			Console.WriteLine(c2.GetDigest() + " " + c1.GetDigest());
+			Console.WriteLine($"{crc1} equal crc {CRC.VerifyDigest(crc1, allBytes1, 0, (uint)allBytes1.Length)}");
 
 			return 0;
 		}
